@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import userRepository from "../repositories/user.repository";
 import jwtAuthenticationMiddleware from "../middlewares/jwt-authentication.middleware";
+import DatabaseError from "../models/errors/database.error.model";
 
 const usersRoute = Router();
 
@@ -45,6 +46,10 @@ usersRoute.put(
     try {
       const id = req.params.id;
       const modifiedUser = req.body;
+      if (req.user.id != id)
+        throw new DatabaseError("Não é possível atualizar outro usuário", {
+          message: "Não é possível atualizar outro usuário",
+        });
       modifiedUser.id = id;
 
       await userRepository.update(modifiedUser);
@@ -63,6 +68,10 @@ usersRoute.delete(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id;
+      if (req.user.id != id)
+        throw new DatabaseError("Não é possível atualizar outro usuário", {
+          message: "Não é possível atualizar outro usuário",
+        });
       await userRepository.remove(Number(id));
       res.status(StatusCodes.OK).send();
     } catch (error) {
