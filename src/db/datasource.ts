@@ -2,6 +2,9 @@ import "reflect-metadata";
 require("dotenv/config");
 import { DataSource } from "typeorm";
 import { User } from "../entities/User";
+import { Category } from "../entities/Category";
+import { Product } from "../entities/Product";
+
 const { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_DB } = process.env;
 
 const AppDataSource = new DataSource({
@@ -11,7 +14,7 @@ const AppDataSource = new DataSource({
   username: DB_USER,
   password: DB_PASS,
   database: DB_DB,
-  entities: [User],
+  entities: [User, Category, Product],
   synchronize: true,
   logging: false,
 });
