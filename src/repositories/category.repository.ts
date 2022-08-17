@@ -28,12 +28,13 @@ class CategoryRepository {
     try {
       const categoryToCreate = new Category();
       categoryToCreate.name = category.name;
+      categoryToCreate.description = category.description;
 
       const result = await this.CategoryRepo.save(categoryToCreate);
       return result.id?.toString() || "";
     } catch (error: any) {
       console.error(error);
-      throw new DatabaseError("Erro na consulta por id", error.detail);
+      throw new DatabaseError("Erro ao cadastrar categoria", error.detail);
     }
   }
 
@@ -43,6 +44,7 @@ class CategoryRepository {
       if (!categoryToUpdate) throw new DatabaseError("Id de usuário não encontrado", null);
 
       categoryToUpdate.name = category.name;
+      categoryToUpdate.description = category.description;
 
       await this.CategoryRepo.save(categoryToUpdate);
     } catch (error) {
