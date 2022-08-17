@@ -8,9 +8,21 @@ export class Product {
 
   @Column()
   name!: string;
-  
+
   @Column()
-  img_link!: string;
+  description?: string;
+
+  @Column()
+  img_link?: string;
+
+  @Column()
+  price: number = 0;
+
+  @Column()
+  stock_qtd: number = 0;
+
+  @Column()
+  enabled: boolean = true;
 
   @ManyToOne(() => Category, (category) => category.products)
   category!: Category;
