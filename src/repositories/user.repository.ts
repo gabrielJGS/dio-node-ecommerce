@@ -59,7 +59,7 @@ class UserRepository {
       const userToUpdate = await this.findById(user.id);
       if (!userToUpdate) throw new DatabaseError("Id de usuário não encontrado", null);
 
-      userToUpdate.email = user.email;
+      userToUpdate.name = user.name;
       userToUpdate.email = user.email;
       userToUpdate.password = user.password;
 
