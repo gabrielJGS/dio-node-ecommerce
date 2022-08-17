@@ -14,9 +14,8 @@ authorizationRoute.post(
     try {
       const user = req.user;
       if (!user) throw new ForbiddenError("Usuário não informado");
-
-      const jwtPayload = { email: user.email };
-      const jwtOptions = {
+      const jwtPayload = { email: user.email, isAdmin: user.isAdmin };
+      const jwtOptions: JWT.SignOptions = {
         subject: user.id.toString(),
         expiresIn: "15m",
       };
