@@ -15,7 +15,6 @@ async function jwtAuthenticationMiddleware(req: Request, res: Response, next: Ne
 
     const tokenPayload = JWT.verify(token, "my_secret_key");
     if (typeof tokenPayload !== "object" || !tokenPayload.sub) throw new ForbiddenError("Token inválido");
-    console.log(tokenPayload)
     if (!tokenPayload.isAdmin) throw new UnathorizedError("Não autorizado");
     const user = {
       id: tokenPayload.sub,
