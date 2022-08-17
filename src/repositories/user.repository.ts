@@ -45,6 +45,7 @@ class UserRepository {
       userToCreate.name = user.name;
       userToCreate.email = user.email;
       userToCreate.password = user.password;
+      userToCreate.isAdmin = user.isAdmin;
 
       const result = await this.UserRepo.save(userToCreate);
       return result.id?.toString() || "";
@@ -62,6 +63,7 @@ class UserRepository {
       userToUpdate.name = user.name;
       userToUpdate.email = user.email;
       userToUpdate.password = user.password;
+      userToUpdate.isAdmin = user.isAdmin;
 
       await this.UserRepo.save(userToUpdate);
     } catch (error) {
