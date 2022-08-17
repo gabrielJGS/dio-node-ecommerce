@@ -24,6 +24,9 @@ export class Product {
   @Column()
   enabled: boolean = true;
 
+  @Column()
+  categoryId!: number;
+
   @ManyToOne(() => Category, (category) => category.products)
   category!: Category;
 }
