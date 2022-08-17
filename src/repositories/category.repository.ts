@@ -29,6 +29,7 @@ class CategoryRepository {
       const categoryToCreate = new Category();
       categoryToCreate.name = category.name;
       categoryToCreate.description = category.description;
+      categoryToCreate.enabled = category.enabled;
 
       const result = await this.CategoryRepo.save(categoryToCreate);
       return result.id?.toString() || "";
@@ -45,6 +46,7 @@ class CategoryRepository {
 
       categoryToUpdate.name = category.name;
       categoryToUpdate.description = category.description;
+      categoryToUpdate.enabled = category.enabled;
 
       await this.CategoryRepo.save(categoryToUpdate);
     } catch (error) {

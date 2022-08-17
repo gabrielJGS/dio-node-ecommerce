@@ -12,6 +12,9 @@ export class Category {
   @Column()
   description?: string;
 
+  @Column()
+  enabled: boolean = true;
+
   @OneToMany(() => Product, (product) => product.category) // note: we will create author property in the product class below
   products?: Product[];
 }
