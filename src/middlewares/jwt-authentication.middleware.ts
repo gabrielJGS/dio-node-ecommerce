@@ -6,14 +6,16 @@ async function jwtAuthenticationMiddleware(req: Request, res: Response, next: Ne
   try {
     const authorizationHeader = req.headers["authorization"];
     if (!authorizationHeader) {
-      throw new ForbiddenError("Credenciais não informadas");
+      throw new ForbiddenError("Credenciais não informadas", { message: "Credenciais não informadas" });
     }
     const [authenticationType, token] = authorizationHeader.split(" ");
-    if (authenticationType != "Bearer" || !token) throw new ForbiddenError("Tipo de autenticação inválido");
+    if (authenticationType != "Bearer" || !token)
+      throw new ForbiddenError("Tipo de autenticação inválido", { message: "Tipo de autenticação inválido" });
 
     try {
       const tokenPayload = JWT.verify(token, "my_secret_key");
-      if (typeof tokenPayload !== "object" || !tokenPayload.sub) throw new ForbiddenError("Token inválido");
+      if (typeof tokenPayload !== "object" || !tokenPayload.sub)
+        throw new ForbiddenError("Token inválido", { message: "Token inválido" });
 
       const user = {
         id: tokenPayload.sub,
@@ -22,13 +24,13 @@ async function jwtAuthenticationMiddleware(req: Request, res: Response, next: Ne
       req.user = user;
 
       next();
-    } catch (error) {
-      console.error(error)
-
-      next(error);
+    } catch (error: any) {
+      console.error(error);
+      if (error.message == "jwt expired") throw new ForbiddenError("Token expirado", { message: "Token expirado" });
+      else throw new ForbiddenError("Token Inválido", { message: "Token Inválido" });
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
     next(error);
   }
 }
