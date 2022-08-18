@@ -4,7 +4,7 @@
   "description": "Projeto de ecommerce criado para concluir o curso de Node",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "prestart": "npm run build",
     "start": "node ./dist/index.js",
     "build": "tsc -p .",
