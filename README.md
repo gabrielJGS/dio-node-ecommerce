@@ -13,3 +13,4 @@ TODO:
 - Transformar o arquivo db em classe
 - Terminar de escrever os testes
 - Inicializar os testes de integração também no db de teste(sqlite)
+- Adicionar documentação(swagger)
